@@ -12,14 +12,21 @@ const loadingBarElement = document.querySelector(".loading-bar");
 const loadingManager = new THREE.LoadingManager(
 	// Loaded: Hide the overlay
 	() => {
-		gsap.to(overlayMaterial.uniforms.uAlpha, {
-			duration: 3,
-			value: 0,
-		});
+		window.setTimeout(() => {
+			gsap.to(overlayMaterial.uniforms.uAlpha, {
+				duration: 3,
+				value: 0,
+			});
+			// Adding the class w/ classList.add()
+			loadingBarElement.classList.add("ended");
+			// Added this to avoid CSS scoping issues
+			loadingBarElement.style.transform = "";
+		}, 500);
 	},
 	// Progress: Use to animate by utilizing itemLoaded and itemsTotal
 	(itemURL, itemLoaded, itemsTotal) => {
 		const progressRatio = itemLoaded / itemsTotal;
+		// Using DOM and transform with a template literal to animate the bar.
 		loadingBarElement.style.transform = `scaleX(${progressRatio})`;
 		console.log(progressRatio);
 	}

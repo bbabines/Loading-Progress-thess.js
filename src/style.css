@@ -24,4 +24,14 @@ body {
 
 	transform: scaleX(0);
 	transform-origin: top left;
+	/* Smooths out the transform animation */
+	transition: transform 0.5s;
+	/* Slightly better performance w/ this */
+	will-change: transform;
+}
+
+/* Adding the "ended" class in JS to apply these properties */
+.loading-bar.ended {
+	transform-origin: top right;
+	transition: transform 1.5s ease-in-out;
 }
